@@ -16,13 +16,24 @@ import { Observable } from 'rxjs';
         <option [value]="product.id">{{ product.title }} - {{ product.price | currency }}</option>
       }
     </select>
+
+    <h2>Apple Products</h2>
+<select>
+  <option *ngFor="let product of appleProducts$ | async" [value]="product.id">
+    {{ product.title }}
+  </option>
+</select>
   `
 })
 export class AppleProductsComponent {
-  appleProducts$: Observable<Product[]>;
+  // appleProducts$: Observable<Product[]>;
   selectedProduct: string = '';
 
   constructor(private productService: ProductService) {
     this.appleProducts$ = this.productService.getAppleProducts();
   }
+
+  appleProducts$ = this.productService.getAppleProducts();
+  // constructor(private productService: ProductService) {}
+
 }
